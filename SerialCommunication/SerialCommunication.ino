@@ -1,5 +1,5 @@
 #define SENSOR_PIN   A0
-#define OUTPUT_PIN   D0
+#define OUTPUT_PIN   9
 
 
 void setup() {
