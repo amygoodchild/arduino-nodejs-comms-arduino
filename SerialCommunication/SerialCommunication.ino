@@ -17,21 +17,22 @@ void setup() {
 void loop() {
 
   // Take reading from the sensor
-  int reading = analogRead(SENSOR_PIN);
+  int myReading = analogRead(SENSOR_PIN);
 
   // Send it to the serial connection
-  Serial.write(reading);
+  Serial.write(myReading);
 
 
   // check if data has been received from the serial connection:
   if (Serial.available() > 0) {
     
     // take the reading
-    int reading = Serial.read(); 
+    int receivedReading = Serial.read(); 
 
     // Maybe some mapping needed here
+    receivedReading = map(receivedReading, 0, 255, 0, 1023);
 
     // Use the reading for the output
-    analogWrite(OUTPUT_PIN, reading);
+    analogWrite(OUTPUT_PIN, receivedReading);
   }
 }
