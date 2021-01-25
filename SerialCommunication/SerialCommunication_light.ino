@@ -31,7 +31,7 @@ void receiveData(){
     int receivedReading = Serial.read(); 
 
     // Maybe some mapping needed here, depending on what your output needs.
-    // You will always receive data that is 0-255 so it can be sent as a single byte.
+    // You will always receive data that is 0-255 (a single byte)
     receivedReading = map(receivedReading, 0, 255, 0, 1023);
 
     // Send recieved data to output (e.g. LED)
@@ -45,7 +45,7 @@ void readOwnSensor(){
   int sensorReading = analogRead(SENSOR_PIN);
 
   // Maybe some mapping needed here, depending on what values your sensor gives.
-  // You create an output that is 0-255 so it can be sent as a single byte.
+  // You must create an output that is 0-255 so it can be sent as a single byte.
   int readingToSend = map(sensorReading, 0, 1023, 0, 255);
 
   // Send it to the serial connection
