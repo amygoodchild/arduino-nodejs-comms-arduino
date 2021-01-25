@@ -2,7 +2,7 @@
 // Looks for readings coming from the serial connection and sends it to an output (e.g. LED)
 
 #define SENSOR_PIN   A0
-#define OUTPUT_PIN   D0
+#define OUTPUT_PIN   11
 
 
 void setup() {
