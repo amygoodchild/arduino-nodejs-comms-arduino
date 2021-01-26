@@ -30,9 +30,10 @@ void receiveData(){
     // take the reading
     int receivedReading = Serial.read(); 
 
-    // Maybe some mapping needed here, depending on what your output needs.
-    // You will always receive data that is 0-255 (a single byte)
-    receivedReading = map(receivedReading, 0, 255, 0, 1023);
+    // Maybe some mapping needed here, depending on what your output needs...
+    // (You will always receive data that is 0-255 (a single byte))
+    // ...an analog output such as an LED will expect an analogWrite between 0-255
+    //receivedReading = map(receivedReading, 0, 255, 0, 1023);
 
     // Send recieved data to output (e.g. LED)
     analogWrite(OUTPUT_PIN, receivedReading);
