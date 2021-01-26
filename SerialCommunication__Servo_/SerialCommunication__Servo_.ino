@@ -3,7 +3,6 @@
 
 #include <Servo.h>
 Servo myservo;  // create servo object to control a servo
-int val = 0;
 
 void setup() {
   // initialize the serial communication:
@@ -20,24 +19,41 @@ void setup() {
 }
 
 void loop() {
+ 
+  readOwnSensor();
+  receiveData();
+  delay(15); //give the servo a breather
 
-  // Take reading from the sensor
-  int reading = analogRead(SENSOR_PIN);
-  reading = map(reading, 0, 1023, 0, 255); //make sure the full range of the sensor is scaled to 0~255 so we can send it as a single byte
+  receiveData();
+
+}
+
+void receiveData(){
   
-  // Send it to the serial connection
-  Serial.write(reading);
-
   // check if data has been received from the serial connection:
   if (Serial.available() > 0) {
 
-    // take the reading from online
-    val = Serial.read();
-    // sets the servo position according to the scaled value
-    val = map(val, 0, 255, 0, 180);     // scale it to use it with the servo (value between 0 and 180)
-    myservo.write(val);
+    // take the reading
+    int receivedReading = Serial.read();
+    
+    // Maybe some mapping needed here, depending on what your output needs.
+    // You will always receive data that is 0-255 (a single byte)
+    receivedReading = map(receivedReading, 0, 255, 0, 180);
+    
+    myservo.write(receivedReading);
+    
   }
 
-  delay(15); //give the servo a breather
+void readOwnSensor(){
+  
+  // Take reading from the sensor
+  int sensorReading = analogRead(SENSOR_PIN);
 
+  // Maybe some mapping needed here, depending on what values your sensor gives.
+  // You must create an output that is 0-255 so it can be sent as a single byte.
+  int readingToSend = map(sensorReading, 0, 1023, 0, 255);
+
+  // Send it to the serial connection
+  Serial.write(readingToSend);
+  
 }
