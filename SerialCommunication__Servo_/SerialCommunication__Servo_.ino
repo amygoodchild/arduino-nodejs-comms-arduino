@@ -24,7 +24,6 @@ void loop() {
   receiveData();
   delay(15); //give the servo a breather
 
-  receiveData();
 
 }
 
